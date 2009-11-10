@@ -1,0 +1,58 @@
+<% @page_heading = _('General settings') %>
+<% subtabs_for(:settings) %>
+
+<% form_tag :action => 'update' do %>
+
+<div class="admin">
+  <fieldset>
+    <legend><%= _("Your blog")%></legend>
+    <ul>
+      <li>
+        <label for="setting_blog_name" class="float"><%= _("Blog name")%></label>
+        <%= text_field(:setting, :blog_name, :size => this_blog.blog_name.length)%>
+      </li>
+      <li>
+        <label class="float" for="setting_blog_subtitle"><%= _("Blog subtitle")%></label>
+        <%= text_field(:setting, :blog_subtitle, :size => this_blog.blog_subtitle.length)%>
+      </li>
+      <li>
+        <label class="float" for="base_url"><%= _("Blog URL")%></label>
+        <%= text_field(:setting, :base_url, :size => this_blog.base_url.length)%>
+      </li>
+      <li>
+        <label class="float" for="setting_lang"><%= _("Language")%></label>
+        <select name="setting[lang]" id='setting_lang'>
+          <%= fetch_langs %>
+        </select>
+      </li>
+      <li><%= _("You can allow users to register to your blog. By default, they will register as contributors, an unpriviledged account level which grant them no rights but own a profile on the site. If you don't want users to register, you can thus add them by yourself in the users part of this admin.") %>.</li>
+      <li>
+        <label class="float" for="setting_allow_signup"><%= _("Allow users to register")%></label>
+        <%= radio_button(:setting, :allow_signup, 0)%>
+        <label for="setting_allow_signup_0"><%= _("No")%></label>
+        <span class="float">
+          <%= radio_button(:setting, :allow_signup, 1)%>
+          <label for="setting_allow_signup_1"><%= _("Yes")%></label>
+        </span>
+      </li>
+      <li>
+        <label class="float" for="setting_admin_display_elements"><%= _("Items to display in admin lists")%></label>
+        <%= text_field(:setting, :admin_display_elements, :size => 4)%>
+      </li>
+    </ul>
+  </fieldset>
+
+  <fieldset id="Cache">
+    <legend><%= _("Cache")%></legend>
+    <ul>
+      <li>
+        <label class="float"><%= _("Sweep cache")%></label>
+        <%= link_to _("Sweep cache"), { :controller => "admin/cache",    :action => "sweep_html" } %>
+      </li>
+    </ul>
+  </fieldset>
+
+  <%= hidden_field_tag 'from', 'index' %>  
+  <%= render :partial => 'submit' %>
+</div>
+<% end %>

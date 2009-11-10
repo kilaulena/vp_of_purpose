@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title><%=h page_title %></title>
+  <%= page_header %>
+  <%= stylesheet_link_tag '/stylesheets/theme/application.css', :media => 'all' %>
+</head>
+
+<body>
+<div class="outer-container">
+	<div class="inner-container">
+  	<div class="header">
+			<div class="title">
+    		<h1 class="sitename"><%= link_to this_blog.blog_name, this_blog.base_url %></h1>
+    		<div class="slogan"><%= this_blog.blog_subtitle %></div>
+			</div>
+  	</div>
+    <div class="path">
+        <ul>
+            <li class="page_item <%= 'current_page_item' if (controller.controller_name == "articles" and controller.action_name == "index") %>">
+                <%= link_to _("Home"), this_blog.base_url %>
+            </li>
+            <li class="page_item <%= 'current_page_item' if (controller.action_name != 'index' and controller.action_name != 'view_page') %>">
+                <%= link_to _("Articles"), {:controller => "articles", :action => "archives"} if (controller.controller_name != "index" )%>
+            </li>
+            <li class="page_item <%= 'current_page_item' if (controller.controller_name == "articles" and controller.action_name == "view_page" and params[:name].to_s == 'about') %>">
+                <%= link_to _("About"), this_blog.base_url + "/pages/about" %>
+            </li>
+        </ul>
+    </div>
+
+  	<div class="main">
+    	<div id="content">
+      	<%= @content_for_layout %>
+      	<%= javascript_tag 'show_dates_as_local_time()' %>
+    	</div>
+
+    	<div id="sidebar">
+      	<%= render_sidebars %>
+    	</div>
+    	<br style="clear:both;" />
+  	</div>
+
+  	<div id="footer">
+    	<div class="left">
+    	  <%= link_to this_blog.blog_name, this_blog.base_url %><br/>
+    	  <%= link_to _("Imprint/Impressum"), this_blog.base_url + "/pages/imprint" %>
+    	</div>
+			<div class="right">
+        <%= _("Design based on %s ", link_to('Dirtylicious', ' http://templates.arcsin.se/')) %><br />
+        <%= _("Blog made with %s", link_to('typo', 'http://typosphere.org')) %>
+			</div>
+			<div class="clearer"></div>
+  	</div>
+	</div>
+</div>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-11315723-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+</body>
+</html>

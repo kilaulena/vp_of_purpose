@@ -1,0 +1,67 @@
+<% @page_heading = _('Search Engine Optimization') %>
+<% subtabs_for(:settings) %>
+
+<%= error_messages_for 'blog' %>
+
+<% form_tag :action => 'update' do %>
+<div class="admin">
+  <fieldset>
+    <legend><%= _("Search Engine Optimisation")%></legend>
+    <ul>
+      <li>
+        <label class="float"><%= _("Show blog name")%></label>
+        <%= radio_button(:setting, :title_prefix, 1)%>
+        <label for="setting_title_prefix_1"><%= _("At the beginning of page title")%></label>
+        <span class="float">
+          <%= radio_button(:setting, :title_prefix, 2)%>
+          <label for="setting_title_prefix_2"><%= _("At the end of page title")%></label>
+        </span>
+        <span class="float">
+          <%= radio_button(:setting, :title_prefix, 0)%>
+          <label for="setting_title_prefix_0"><%= _("Don't show blog name in page title")%></label>
+        </span>
+      </li>
+      <li>
+          <label class="float" for="setting_permalink_format"><%= _("Format of permalink")%></label>
+          <%= text_field(:setting, :permalink_format, :size => 25)%>
+      </li>
+      <li>
+          <label class="float" for="setting_google_analytics"><%= _("Google Analytics")%></label>
+          <%= text_field(:setting, :google_analytics, :size => 25)%>
+      </li>
+      <li>
+          <label class="float" for="setting_meta_description"><%= _("Meta description")%></label>
+          <%= text_area(:setting, :meta_description, :rows => 5, :cols => 50)%>
+      </li>
+      <li>
+          <label class="float" for="setting_meta_keywords"><%= _("Meta keywords")%></label>
+          <%= text_field(:setting, :meta_keywords, :size => 25)%>
+      </li>
+      <li class="checkbox">
+        <label class="float" for="setting_rss_description"><%= _("Use RSS description")%></label>
+        <%= check_box(:setting, :rss_description)%>
+       <span class="float"><%= "#{_('This will display')} <em>#{_('Original article written by')} ... #{_('and published on')} <a href='#{this_blog.base_url}'>#{this_blog.blog_name}</a> | <a href='#{this_blog.base_url}'>#{_('direct link to this article')}</a></em> #{_('at the bottom of each of your post in the RSS feed')}"%></span>
+      </li>
+      <li class="checkbox">
+        <label class="float" for="setting_index_categories"><%= _("Index categories")%></label>
+        <%= check_box(:setting, :index_categories)%>
+        <span class="float"><%= _("Unchecking this box will add <code>noindex, follow</code> meta tags in every category page, removing them from search engines and preventing duplicate content issues") %></span>
+      </li>
+      <li class="checkbox">
+        <label class="float" for="setting_index_tags"><%= _("Index tags")%></label>
+        <%= check_box(:setting, :index_tags)%>
+        <span class="float"><%= _("Unchecking this box will add <code>noindex, follow</code> meta tags in every tags page, removing them from search engines and preventing duplicate content issues") %></span>
+      </li>
+      <li>
+        <label class="float" for="setting_robots"><%= _("Robots.txt")%></label>
+        <%= text_area(:setting, :robots, :rows => 10, :cols => 50)%>
+        <% unless robot_writable? -%>
+          <span class=' float mandatory'><small><%= _("You robots.txt file is not writeable. Typo won't be able to write it")%></small></span>
+        <% end -%>
+      </li>
+    </ul>
+  </fieldset>
+  <%= hidden_field_tag 'from', 'seo' %>  
+  <%= render :partial => 'submit' %>
+</div>
+<% end %>
