@@ -12,7 +12,7 @@ a img {border: none;}
 
 body {
     background: #E7E7E2 url('../../images/theme/body.jpg') no-repeat center top;
-    color: #444;
+    color: #222;
     font: normal 72.5% Tahoma,sans-serif;
     padding-top: 64px;
 }
@@ -284,7 +284,7 @@ h2.title a {
 }
 .commentmetadata {padding: 2px 0 4px;}
 .commentmetadata a {
-    color: #444;
+    color: #222;
     text-decoration: none;
 }
 .commentmetadata a:hover {text-decoration: underline;}
